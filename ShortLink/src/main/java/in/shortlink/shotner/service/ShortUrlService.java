@@ -24,7 +24,7 @@ public class ShortUrlService implements IShortUrlService {
     @Override
     public String getSortUrl(RegisterDTO body) {
 
-        String uniqueUrl = RandomStringUtils.random(10, true, false);
+        String uniqueUrl = RandomStringUtils.random(10, true, true);
 
         System.out.println(uniqueUrl);
         UrlModel urlModel = new UrlModel();
