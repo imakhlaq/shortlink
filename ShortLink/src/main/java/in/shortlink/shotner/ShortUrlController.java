@@ -20,9 +20,10 @@ public class ShortUrlController {
         this.urlService = urlService;
     }
 
-    @PostMapping("/shorturl")
+    @PostMapping("/register/url")
     public ResponseEntity<String> getShortUrl(@RequestBody RegisterDTO body) {
         String shortUrl = this.urlService.getSortUrl(body);
+        System.out.println(body);
         return ResponseEntity.ok(shortUrl);
 
     }
@@ -31,9 +32,7 @@ public class ShortUrlController {
     @GetMapping("/{shorturl}")
     public ResponseEntity<Void> getRedirected(@PathVariable String shorturl) {
         String shortUrl = urlService.getRedirected(shorturl);
-        System.out.println("=============");
-        System.out.println(shortUrl);
-        System.out.println("test");
+        System.out.println("dadadad");
         return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create(shortUrl)).build();
     }
 
