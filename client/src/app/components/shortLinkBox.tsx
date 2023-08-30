@@ -3,14 +3,16 @@ import { MdContentCopy } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import useClipboard from "@/hooks/useClipboard";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 type Props = {
   sortUrl: string | null;
+  isLoading: boolean;
 };
-const ShortLinkBox = ({ sortUrl }: Props) => {
+const ShortLinkBox = ({ sortUrl, isLoading }: Props) => {
   const setToClipBoard = useClipboard();
 
-  if (!sortUrl) return null;
+  if (!sortUrl || isLoading) return null;
 
   const clickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -21,7 +23,9 @@ const ShortLinkBox = ({ sortUrl }: Props) => {
   return (
     <section className="container mx-auto max-w-6xl px-6 py-8 text-2xl">
       <div className="flex justify-around bg-black items-center px-4 py-5 rounded">
-        <p className="text-xl">{sortUrl}</p>
+        <Link href={sortUrl} className="text-xl">
+          {sortUrl}
+        </Link>
         <button className=" p-2 lg:p-6" onClick={clickHandler}>
           <MdContentCopy className="lg:w-20" />
         </button>

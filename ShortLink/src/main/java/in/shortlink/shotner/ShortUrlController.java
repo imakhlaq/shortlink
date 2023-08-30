@@ -2,6 +2,7 @@ package in.shortlink.shotner;
 
 
 import in.shortlink.shotner.dto.RegisterDTO;
+import in.shortlink.shotner.dto.ResponseBody;
 import in.shortlink.shotner.service.IShortUrlService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,20 +21,21 @@ public class ShortUrlController {
         this.urlService = urlService;
     }
 
-    @PostMapping("/register/url")
-    public ResponseEntity<String> getShortUrl(@RequestBody RegisterDTO body) {
+    @PostMapping("/shorturl")
+    public ResponseEntity<ResponseBody> getShortUrl(@RequestBody RegisterDTO body) {
         String shortUrl = this.urlService.getSortUrl(body);
-        System.out.println(body);
-        return ResponseEntity.ok(shortUrl);
+        ResponseBody responseBody = new ResponseBody();
+        responseBody.setShortURl("http://127.0.0.1:8080/" + shortUrl);
+        responseBody.setStatusCode(HttpStatus.OK);
+        return ResponseEntity.ok(responseBody);
 
     }
 
 
     @GetMapping("/{shorturl}")
     public ResponseEntity<Void> getRedirected(@PathVariable String shorturl) {
-        String shortUrl = urlService.getRedirected(shorturl);
-        System.out.println("dadadad");
-        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create(shortUrl)).build();
+        String url = urlService.getRedirected(shorturl);
+        return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT).location(URI.create(url)).build();
     }
 
 }

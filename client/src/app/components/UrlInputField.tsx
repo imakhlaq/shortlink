@@ -1,9 +1,8 @@
 "use client";
 import { bungee } from "@/app/components/navbar";
 import ShortLinkBox from "@/app/components/shortLinkBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCustomQuery } from "@/hooks/useQuery";
-import { baseURL } from "@/utils/service";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -11,26 +10,29 @@ const UrlInputField = () => {
   const [userUrl, setUserUrl] = useState<string | null>(null);
   const [sortedUrl, setSortedUrl] = useState<string | null>(null);
 
-  //const { mutate, isLoading, isError, data, error } = useCustomQuery();
+  //const { mutate, isLoading, isError, data, error }=useCustomQuery();
 
   const { mutate, isLoading, isError, data, error } = useMutation(
     (data: any) => {
-      console.log("Dadadad");
-      return axios.post("http://127.0.0.1:8080/register/url", {
+      return axios.post("http://localhost:8080/shorturl", {
         url: userUrl,
-        owner: null,
+        owner: "imakhlaq",
       });
+    },
+    {
+      onSuccess: ({ data }) => {
+        console.log(data);
+        setSortedUrl(data.shortURl);
+      },
     },
   );
 
-  console.log({ isLoading, isError });
+  if (isError) {
+    // @ts-ignore
+    console.log(error?.message);
+  }
 
-  // if (isError) console.log(error);
-  //
-  // if (isLoading) console.log("loading");
-
-  // if (data) setSortedUrl(`${baseURL}/${data}`);
-  if (data) console.log(sortedUrl);
+  if (isLoading) console.log("loading");
 
   return (
     <>
@@ -63,7 +65,7 @@ const UrlInputField = () => {
           </div>
         </form>
       </main>
-      <ShortLinkBox sortUrl={sortedUrl} />
+      <ShortLinkBox sortUrl={sortedUrl} isLoading={isLoading} />
     </>
   );
 };

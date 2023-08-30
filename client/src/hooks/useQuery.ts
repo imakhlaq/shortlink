@@ -3,7 +3,14 @@ import { request } from "@/utils/service";
 import axios from "axios";
 
 function mutateFn(data: any) {
-  return request({ url: "/register/url", method: "POST", data: data });
+  return request({
+    url: "/sorturl",
+    method: "POST",
+    data: {
+      url: data.url,
+      owner: null,
+    },
+  });
 }
 
 export const useCustomQuery = () => {
