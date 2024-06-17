@@ -1,25 +1,11 @@
 {
-	"dataList":[
-		{
-			"hostGroup":[
-				{
-					"env":"local",
-					"url":"http://localhost:8080"
-				}
-			],
-			"name":"ShortLink"
-		}
-	],
-	"envList":[
-		"local"
-	],
+	"dataList":[],
+	"envList":[],
 	"headerList":[],
 	"maxDescriptionLength":-1,
 	"postScript":"",
 	"preScript":"",
-	"projectList":[
-		"ShortLink"
-	],
+	"projectList":[],
 	"syncModel":{
 		"branch":"master",
 		"domain":"https://github.com",
